@@ -1,6 +1,16 @@
 package com.dynatrace.CarCostCalculator;
 
+import com.dynatrace.CarCostCalculator.carmodels.Coupe;
+import com.dynatrace.CarCostCalculator.carmodels.LuxurySedan;
+import com.dynatrace.CarCostCalculator.carmodels.SUV;
+import com.dynatrace.CarCostCalculator.carmodels.Truck;
+
 public class CarCostCalculator {
+
+    public static final String COUPE = "coupe";
+    public static final String TRUCK = "truck";
+    public static final String SUV = "suv";
+    public static final String LUXURY_SEDAN = "luxury_sedan";
 
     public static void main(String[] args) {
         try {
@@ -24,140 +34,24 @@ public class CarCostCalculator {
     public static double calculateCarCost(String type, String[] options, String destinationZip) throws Exception {
         double carCost = 0.0;
 
-        if (type.equals("coupe")) {
-            carCost += 15000;
-            for (String option : options) {
-                if (option.equals("v8")) {
-                    carCost += 5000;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("automatic")) {
-                    carCost += 1000;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("premiumaudio")) {
-                    carCost += 1000;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("sunroof")) {
-                    carCost += 1000;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("navigation")) {
-                    carCost += 1000;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("towpackage")) {
-                    throw new Exception("Not available for coupe.");
-                }
-            }
+        if (type.equals(COUPE)) {
+            Coupe coupe = new Coupe();
+            carCost = coupe.calculateCost(options);
         }
 
-        if (type.equals("truck")) {
-            carCost += 25000;
-            for (String option : options) {
-                if (option.equals("v8")) {
-                    carCost += 6000;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("automatic")) {
-                    carCost += 1500;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("premiumaudio")) {
-                    carCost += 1100;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("sunroof")) {
-                    carCost += 1000;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("towpackage")) {
-                    carCost += 550;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("navigation")) {
-                    carCost += 1000;
-                }
-            }
+        if (type.equals(TRUCK)) {
+            Truck truck = new Truck();
+            carCost = truck.calculateCost(options);
         }
 
-        if (type.equals("suv")) {
-            carCost += 30000;
-            for (String option : options) {
-                if (option.equals("v8")) {
-                    carCost += 5500;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("automatic")) {
-                    carCost += 1200;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("premiumaudio")) {
-                    carCost += 1500;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("sunroof")) {
-                    carCost += 1000;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("towpackage")) {
-                    carCost += 500;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("navigation")) {
-                    carCost += 1000;
-                }
-            }
+        if (type.equals(SUV)) {
+           com.dynatrace.CarCostCalculator.carmodels.SUV suv = new SUV();
+            carCost = suv.calculateCost(options);
         }
 
-        if (type.equals("luxury_sedan")) {
-            carCost += 35000;
-            for (String option : options) {
-                if (option.equals("v8")) {
-                    carCost += 25000;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("automatic")) {
-                    carCost += 1200;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("premiumaudio")) {
-                    carCost += 1500;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("sunroof")) {
-                    carCost += 1000;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("navigation")) {
-                    carCost += 1000;
-                }
-            }
-            for (String option : options) {
-                if (option.equals("towpackage")) {
-                    carCost += 500;
-                }
-            }
+        if (type.equals(LUXURY_SEDAN)) {
+            LuxurySedan luxurySedan = new LuxurySedan();
+            carCost = luxurySedan.calculateCost(options);
 
         }
 
