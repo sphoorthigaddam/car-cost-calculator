@@ -14,6 +14,17 @@ public class CarCostCalculator_Original {
             deltaTime = System.currentTimeMillis() - startTime;
             System.out.println("Car costs: $" + carCost + " calculation took " + deltaTime / 1000 + " seconds");
 
+            String[] options3 = { "v8", "automatic", "navigation" };
+            startTime = System.currentTimeMillis();
+            carCost = calculateCarCost("luxury_sedan", options3, "12345");
+            deltaTime = System.currentTimeMillis() - startTime;
+            System.out.println("Car costs: $" + carCost + " calculation took " + deltaTime / 1000 + " seconds");
+
+            String[] options4 = {"v8", "automatic", "navigation", "sunroof"};
+            startTime = System.currentTimeMillis();
+            carCost = calculateCarCost("suv", options4, "12345");
+            deltaTime = System.currentTimeMillis() - startTime;
+            System.out.println("Car costs: $" + carCost + " calculation took " + deltaTime / 1000 + " seconds");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -21,7 +32,7 @@ public class CarCostCalculator_Original {
 
     public static double calculateCarCost(String type, String[] options, String destinationZip) throws Exception {
         double carCost = 0.0;
-
+        double tax = 0;
         if (type.equals("coupe")) {
             carCost += 15000;
             for (String option : options) {
@@ -88,6 +99,8 @@ public class CarCostCalculator_Original {
                     carCost += 1000;
                 }
             }
+            tax = slowTaxCalculationMethod(destinationZip);
+            tax += 1000;
         }
 
         if (type.equals("suv")) {
@@ -122,6 +135,8 @@ public class CarCostCalculator_Original {
                     carCost += 1000;
                 }
             }
+            tax = slowTaxCalculationMethod(destinationZip);
+            tax += 1000;
         }
 
         if (type.equals("luxury_sedan")) {
@@ -167,15 +182,6 @@ public class CarCostCalculator_Original {
             carCost += 1000;
         }
 
-        String[] gasGuzzlers = { "truck", "suv" };
-        double tax = 0;
-        for (String gasGuzzler : gasGuzzlers) {
-            tax = slowTaxCalculationMethod(destinationZip);
-            if (gasGuzzler.equals(type)) {
-                // adding gas guzzler tax
-                tax += 1000;
-            }
-        }
         carCost += tax;
 
         return carCost;

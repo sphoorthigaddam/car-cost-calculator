@@ -1,46 +1,51 @@
 package com.dynatrace.CarCostCalculator.carmodels;
 
-public class Truck {
+import static com.dynatrace.CarCostCalculator.constants.Constants.AUTOMATIC;
+import static com.dynatrace.CarCostCalculator.constants.Constants.NAVIGATION;
+import static com.dynatrace.CarCostCalculator.constants.Constants.PREMIUM_AUDIO;
+import static com.dynatrace.CarCostCalculator.constants.Constants.SUNROOF;
+import static com.dynatrace.CarCostCalculator.constants.Constants.TOW_PACKAGE;
+import static com.dynatrace.CarCostCalculator.constants.Constants.V_8;
 
-    public static final String V_8 = "v8";
-    public static final String AUTOMATIC = "automatic";
-    public static final String PREMIUMAUDIO = "premiumaudio";
-    public static final String SUNROOF = "sunroof";
-    public static final String TOWPACKAGE = "towpackage";
-    public static final String NAVIGATION = "navigation";
+public class Truck implements Car{
+
     double carCost = 0.0;
-    public double calculateCost(String[] options) {
+    @Override
+    public double calculateCost(String[] options, String destinationZip) {
         carCost += 25000;
         for (String option : options) {
             if (option.equals(V_8)) {
                 carCost += 6000;
             }
-        }
-        for (String option : options) {
             if (option.equals(AUTOMATIC)) {
                 carCost += 1500;
             }
-        }
-        for (String option : options) {
-            if (option.equals(PREMIUMAUDIO)) {
+            if (option.equals(PREMIUM_AUDIO)) {
                 carCost += 1100;
             }
-        }
-        for (String option : options) {
             if (option.equals(SUNROOF)) {
                 carCost += 1000;
             }
-        }
-        for (String option : options) {
-            if (option.equals(TOWPACKAGE)) {
+            if (option.equals(TOW_PACKAGE)) {
                 carCost += 550;
             }
-        }
-        for (String option : options) {
             if (option.equals(NAVIGATION)) {
                 carCost += 1000;
             }
         }
+
+        double tax = slowTaxCalculationMethod(destinationZip) + 1000;
+        carCost += tax;
         return carCost;
+    }
+
+    private static double slowTaxCalculationMethod(String destinationZip) {
+        // the Thread.sleep cannot be removed
+        try {
+            Thread.sleep(1500);
+        } catch (Exception e) {
+            // Do nothing
+        }
+        return 500;
     }
 }

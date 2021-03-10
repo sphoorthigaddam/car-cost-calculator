@@ -1,41 +1,45 @@
 package com.dynatrace.CarCostCalculator.carmodels;
 
-import com.dynatrace.CarCostCalculator.constants.Constants;
 
-public class Coupe {
+import static com.dynatrace.CarCostCalculator.constants.Constants.AUTOMATIC;
+import static com.dynatrace.CarCostCalculator.constants.Constants.NAVIGATION;
+import static com.dynatrace.CarCostCalculator.constants.Constants.PREMIUM_AUDIO;
+import static com.dynatrace.CarCostCalculator.constants.Constants.SUNROOF;
+import static com.dynatrace.CarCostCalculator.constants.Constants.TOW_PACKAGE;
+import static com.dynatrace.CarCostCalculator.constants.Constants.V_8;
+
+public class Coupe implements Car {
     double carCost = 0.0;
-    public double calculateCost(String[] options) throws Exception{
+    @Override
+    public double calculateCost(String[] options, String destinationZip) throws Exception{
         carCost += 15000;
         for (String option : options) {
-            if (option.equals(Constants.V_8)) {
+            if (option.equals(V_8)) {
                 carCost += 5000;
             }
-        }
-        for (String option : options) {
-            if (option.equals(Constants.AUTOMATIC)) {
+
+            if (option.equals(AUTOMATIC)) {
+                carCost += 1000;
+            }
+
+            if (option.equals(PREMIUM_AUDIO)) {
+                carCost += 1000;
+            }
+
+            if (option.equals(SUNROOF)) {
+                carCost += 1000;
+            }
+
+            if (option.equals(NAVIGATION)) {
                 carCost += 1000;
             }
         }
         for (String option : options) {
-            if (option.equals(Constants.PREMIUMAUDIO)) {
-                carCost += 1000;
-            }
-        }
-        for (String option : options) {
-            if (option.equals(Constants.SUNROOF)) {
-                carCost += 1000;
-            }
-        }
-        for (String option : options) {
-            if (option.equals(Constants.NAVIGATION)) {
-                carCost += 1000;
-            }
-        }
-        for (String option : options) {
-            if (option.equals(Constants.TOWPACKAGE)) {
+            if (option.equals(TOW_PACKAGE)) {
                 throw new Exception("Not available for coupe.");
             }
         }
         return carCost;
     }
+
 }
