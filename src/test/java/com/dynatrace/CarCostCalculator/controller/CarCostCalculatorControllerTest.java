@@ -1,7 +1,6 @@
-package com.dynatrace.CarCostCalculator.service;
+package com.dynatrace.CarCostCalculator.controller;
 
 import com.dynatrace.CarCostCalculator.models.CarCalculatorCostRequest;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,13 +16,9 @@ import static com.dynatrace.CarCostCalculator.constants.Constants.V_8;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class CarCostCalculatorServiceTest {
+class CarCostCalculatorControllerTest {
     @Autowired
-    CarCostCalculatorService service;
-
-    @BeforeEach
-    void setUp() {
-    }
+    CarCostCalculatorController carCostCalculatorController;
 
     @Test
     void calculateCarCost_ReturnsCarCost_ForTypeCoupe_andValidValues() throws Exception{
@@ -33,18 +28,18 @@ class CarCostCalculatorServiceTest {
                 .selectedOptions(new String[]{V_8, AUTOMATIC, NAVIGATION})
                 .build();
 
-        assertEquals(22000.0, service.calculateCarCost(request));
+        assertEquals(22000.0, carCostCalculatorController.calculateCarCost(request));
     }
 
     @Test
-    void calculateCarCost_throwsException_whenTowPackageIsAnOption() {
+    void calculateCarCost_throwsException_whenTowPackageIsAnOption() throws Exception {
         CarCalculatorCostRequest request = CarCalculatorCostRequest.builder()
                 .type(COUPE)
                 .destinationZip("123456")
                 .selectedOptions(new String[]{V_8, AUTOMATIC, TOW_PACKAGE})
                 .build();
 
-        Exception ex = assertThrows(Exception.class, () -> service.calculateCarCost(request));
+        Exception ex = assertThrows(Exception.class, () -> carCostCalculatorController.calculateCarCost(request));
         assertEquals("Not available for coupe.", ex.getMessage());
     }
 
@@ -56,7 +51,7 @@ class CarCostCalculatorServiceTest {
                 .selectedOptions(new String[]{V_8, AUTOMATIC, NAVIGATION, SUNROOF})
                 .build();
 
-        assertEquals(64200.0, service.calculateCarCost(request));
+        assertEquals(64200.0, carCostCalculatorController.calculateCarCost(request));
     }
 
     @Test
@@ -67,6 +62,6 @@ class CarCostCalculatorServiceTest {
                 .selectedOptions(new String[]{V_8, AUTOMATIC, NAVIGATION, SUNROOF})
                 .build();
 
-        assertEquals(41050.0, service.calculateCarCost(request));
+        assertEquals(41050.0, carCostCalculatorController.calculateCarCost(request));
     }
 }
