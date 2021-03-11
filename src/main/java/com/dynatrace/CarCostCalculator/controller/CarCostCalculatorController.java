@@ -4,13 +4,11 @@ import com.dynatrace.CarCostCalculator.models.CarCalculatorCostRequest;
 import com.dynatrace.CarCostCalculator.models.CarCostCalculatorResponse;
 import com.dynatrace.CarCostCalculator.service.CarCostCalculatorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
-@ResponseBody
+@RestController
 public class CarCostCalculatorController {
 
     @Autowired
