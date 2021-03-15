@@ -2,7 +2,7 @@ package com.dynatrace.CarCostCalculator.controller;
 
 import com.dynatrace.CarCostCalculator.models.CarCalculatorCostRequest;
 import com.dynatrace.CarCostCalculator.models.CarCostCalculatorResponse;
-import com.dynatrace.CarCostCalculator.service.CarCostCalculatorService;
+import com.dynatrace.CarCostCalculator.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +15,12 @@ import javax.validation.Valid;
 
 @RestController
 @CrossOrigin("*")
-public class CarCostCalculatorController {
+public class CarController {
 
-    private final CarCostCalculatorService service;
+    private final CarService service;
 
     @Autowired
-    public CarCostCalculatorController(CarCostCalculatorService service) {
+    public CarController(CarService service) {
         this.service = service;
     }
 

@@ -1,16 +1,19 @@
 package com.dynatrace.CarCostCalculator.service;
 
 import com.dynatrace.CarCostCalculator.carmodels.Car;
+import com.dynatrace.CarCostCalculator.carmodels.CarCostCalculatorFactory;
 import com.dynatrace.CarCostCalculator.models.CarCalculatorCostRequest;
 import com.dynatrace.CarCostCalculator.models.CarCostCalculatorResponse;
-import com.dynatrace.CarCostCalculator.models.VehicleType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CarCostCalculatorService {
+public class CarService {
+    @Autowired
+    CarCostCalculatorFactory factory;
 
     public CarCostCalculatorResponse calculateCarCost(CarCalculatorCostRequest request) {
-        Car car = VehicleType.getVehicleType(request.getType()).getType();
+        Car car = factory.getCar(request.getType());
 
         double carCost = car.calculateCost(request.getSelectedOptions(), request.getDestinationZip());
 

@@ -30,8 +30,13 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+
 }
 
 test {
 	useJUnitPlatform()
+	testLogging {
+		events "PASSED", "SKIPPED", "FAILED"
+	}
 }

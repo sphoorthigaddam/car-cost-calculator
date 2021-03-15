@@ -3,7 +3,6 @@ package com.dynatrace.CarCostCalculator;
 import com.dynatrace.CarCostCalculator.carmodels.Car;
 import com.dynatrace.CarCostCalculator.carmodels.CarCostCalculatorFactory;
 import com.dynatrace.CarCostCalculator.models.Options;
-import com.dynatrace.CarCostCalculator.models.VehicleType;
 
 public class CarCostCalculator {
 
@@ -40,7 +39,8 @@ public class CarCostCalculator {
     }
 
     public static double calculateCarCost(String type, Options selectedOptions, String destinationZip) {
-        Car car = VehicleType.getVehicleType(type).getType();
+        CarCostCalculatorFactory factory = new CarCostCalculatorFactory();
+        Car car = factory.getCar(type);
 
         double carCost = car.calculateCost(selectedOptions, destinationZip);
 

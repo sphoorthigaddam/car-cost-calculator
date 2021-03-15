@@ -1,10 +1,10 @@
 package com.dynatrace.CarCostCalculator.feature;
 
-import com.dynatrace.CarCostCalculator.controller.CarCostCalculatorController;
+import com.dynatrace.CarCostCalculator.controller.CarController;
 import com.dynatrace.CarCostCalculator.exception.CustomExceptionHandler;
 import com.dynatrace.CarCostCalculator.models.CarCalculatorCostRequest;
 import com.dynatrace.CarCostCalculator.models.Options;
-import com.dynatrace.CarCostCalculator.service.CarCostCalculatorService;
+import com.dynatrace.CarCostCalculator.service.CarService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,13 +17,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static com.dynatrace.CarCostCalculator.constants.Constants.AUTOMATIC;
-import static com.dynatrace.CarCostCalculator.constants.Constants.COUPE;
-import static com.dynatrace.CarCostCalculator.constants.Constants.LUXURY_SEDAN;
 import static com.dynatrace.CarCostCalculator.constants.Constants.PREMIUM_AUDIO;
 import static com.dynatrace.CarCostCalculator.constants.Constants.SUNROOF;
-import static com.dynatrace.CarCostCalculator.constants.Constants.SUV;
-import static com.dynatrace.CarCostCalculator.constants.Constants.TRUCK;
 import static com.dynatrace.CarCostCalculator.constants.Constants.V_8;
+import static com.dynatrace.CarCostCalculator.models.VehicleType.COUPE;
+import static com.dynatrace.CarCostCalculator.models.VehicleType.LUXURY_SEDAN;
+import static com.dynatrace.CarCostCalculator.models.VehicleType.SUV;
+import static com.dynatrace.CarCostCalculator.models.VehicleType.TRUCK;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -37,12 +37,12 @@ public class CalculateCarCostFeatureTest {
     private MockMvc mvc;
 
     @Autowired
-    CarCostCalculatorService service;
+    CarService service;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeEach
     public void setUp() {
-        mvc = MockMvcBuilders.standaloneSetup(new CarCostCalculatorController(service))
+        mvc = MockMvcBuilders.standaloneSetup(new CarController(service))
                 .setControllerAdvice(new CustomExceptionHandler())
                 .build();
     }
@@ -50,7 +50,7 @@ public class CalculateCarCostFeatureTest {
     @Test
     public void calculateCarCost_ReturnsCarCost_whenValidRequestForCoupeIsPassed() throws Exception {
         CarCalculatorCostRequest request = CarCalculatorCostRequest.builder()
-                .type(COUPE)
+                .type(COUPE.getName())
                 .destinationZip("123456")
                 .selectedOptions(Options.builder()
                         .engine(V_8)
@@ -73,7 +73,7 @@ public class CalculateCarCostFeatureTest {
     @Test
     public void calculateCarCost_throwsException_whenInvalidOptionForCoupeIsPassed() throws Exception {
         CarCalculatorCostRequest request = CarCalculatorCostRequest.builder()
-                .type(COUPE)
+                .type(COUPE.getName())
                 .destinationZip("123456")
                 .selectedOptions(Options.builder()
                         .engine(V_8)
@@ -121,7 +121,7 @@ public class CalculateCarCostFeatureTest {
     @Test
     public void calculateCarCost_returnsCarCost_withValidRequestAndNoOptions() throws Exception {
         CarCalculatorCostRequest request = CarCalculatorCostRequest.builder()
-                .type(TRUCK)
+                .type(TRUCK.getName())
                 .destinationZip("123456")
                 .build();
 
@@ -139,7 +139,7 @@ public class CalculateCarCostFeatureTest {
     @Test
     public void calculateCarCost_returnsCarCost_withValidRequestForSUV() throws Exception {
         CarCalculatorCostRequest request = CarCalculatorCostRequest.builder()
-                .type(SUV)
+                .type(SUV.getName())
                 .destinationZip("123456")
                 .selectedOptions(Options.builder()
                         .engine(V_8)
@@ -165,7 +165,7 @@ public class CalculateCarCostFeatureTest {
     @Test
     public void calculateCarCost_returnsCarCost_withValidRequestForLuxurySedan() throws Exception {
         CarCalculatorCostRequest request = CarCalculatorCostRequest.builder()
-                .type(LUXURY_SEDAN)
+                .type(LUXURY_SEDAN.getName())
                 .destinationZip("123456")
                 .selectedOptions(Options.builder()
                         .engine(V_8)

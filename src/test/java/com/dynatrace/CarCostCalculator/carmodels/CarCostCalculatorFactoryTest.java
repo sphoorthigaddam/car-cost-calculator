@@ -1,32 +1,32 @@
 package com.dynatrace.CarCostCalculator.carmodels;
 
-import com.dynatrace.CarCostCalculator.models.VehicleType;
 import org.junit.jupiter.api.Test;
 
-import static com.dynatrace.CarCostCalculator.constants.Constants.COUPE;
-import static com.dynatrace.CarCostCalculator.constants.Constants.LUXURY_SEDAN;
-import static com.dynatrace.CarCostCalculator.constants.Constants.SUV;
-import static com.dynatrace.CarCostCalculator.constants.Constants.TRUCK;
+import static com.dynatrace.CarCostCalculator.models.VehicleType.COUPE;
+import static com.dynatrace.CarCostCalculator.models.VehicleType.LUXURY_SEDAN;
+import static com.dynatrace.CarCostCalculator.models.VehicleType.SUV;
+import static com.dynatrace.CarCostCalculator.models.VehicleType.TRUCK;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CarCostCalculatorFactoryTest {
+    CarCostCalculatorFactory carCostCalculatorFactory = new CarCostCalculatorFactory();
     @Test
     void getCar_shouldReturnCoupeObject_whenTypeIsCoupe() {
-        assertTrue(VehicleType.getVehicleType(COUPE).getType() instanceof Coupe);
+        assertTrue(carCostCalculatorFactory.getCar(COUPE.getName()) instanceof Coupe);
     }
 
     @Test
     void getCar_shouldReturnSuvObject_whenTypeIsSuv() {
-        assertTrue(VehicleType.getVehicleType(SUV).getType() instanceof SUV);
+        assertTrue(carCostCalculatorFactory.getCar(SUV.getName()) instanceof SUV);
     }
 
     @Test
     void getCar_shouldReturnTruckObject_whenTypeIsTruck() {
-        assertTrue(VehicleType.getVehicleType(TRUCK).getType() instanceof Truck);
+        assertTrue(carCostCalculatorFactory.getCar(TRUCK.getName()) instanceof Truck);
     }
 
     @Test
     void getCar_shouldReturnLuxurySedanObject_whenTypeIsLuxurySedan() {
-        assertTrue(VehicleType.getVehicleType(LUXURY_SEDAN).getType() instanceof LuxurySedan);
+        assertTrue(carCostCalculatorFactory.getCar(LUXURY_SEDAN.getName()) instanceof LuxurySedan);
     }
 }
