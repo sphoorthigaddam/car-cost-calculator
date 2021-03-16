@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class CarCalculatorCostRequest {
 
-    @NotBlank(message = "Type Cannot be Blank/Null")
+    @NotBlank(message = "Car type Cannot be blank/null")
     private String type;
 
     private Options selectedOptions;
