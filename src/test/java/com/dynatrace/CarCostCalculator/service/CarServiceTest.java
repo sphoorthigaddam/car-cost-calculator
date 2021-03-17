@@ -30,7 +30,6 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 class CarServiceTest {
 
-    @Autowired
     CarService service;
 
     @MockBean
@@ -38,6 +37,7 @@ class CarServiceTest {
 
     @BeforeEach
     void setUp() {
+        service = new CarService(factory);
     }
 
     @Test

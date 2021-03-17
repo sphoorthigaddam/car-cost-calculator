@@ -9,8 +9,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CarService {
-    @Autowired
+
     CarCostCalculatorFactory factory;
+
+    @Autowired
+    public CarService(CarCostCalculatorFactory factory) {
+        this.factory = factory;
+    }
 
     public CarCostCalculatorResponse calculateCarCost(CarCalculatorCostRequest request) {
         Car car = factory.getCar(request.getType());
